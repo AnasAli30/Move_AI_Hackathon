@@ -14,7 +14,7 @@ const memorySaver = new MemorySaver();
 
 // MongoDB Initialization
 const client = new MongoClient(process.env.MONGODB_URI);
-let db;
+let db; 
 async function connectDB() {
   await client.connect();
   db = client.db(process.env.MONGODB_DB_NAME);
@@ -175,7 +175,7 @@ bot.on("text", async (ctx) => {
       const response = chunk.agent.messages[0].content;
 
       // Format message properly with HTML
-      const formattedResponse = `<b>📝 Response:</b>\n\n${response}`;
+      const formattedResponse = `${response}`;
 
       await ctx.replyWithHTML(formattedResponse, {
         reply_to_message_id: ctx.message.message_id,
