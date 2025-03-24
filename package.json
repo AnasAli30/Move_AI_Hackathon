@@ -4,8 +4,8 @@
     "description": "A Telegram bot integrated with Move AI Agent and Aptos blockchain.",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js"
+        "start": "node bot.js",
+        "dev": "nodemon bot.js"
     },
     "dependencies": {
         "@aptos-labs/ts-sdk": "^1.36.0",

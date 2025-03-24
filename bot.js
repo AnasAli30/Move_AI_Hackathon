@@ -165,13 +165,26 @@ bot.on("text", async (ctx) => {
   const { AptosAccount } = await getOrCreateUserWallet(userId);
   const { agent, config } = await initializeAgent(userId, AptosAccount);
 
+  // Show "typing..." indicator
+  await ctx.telegram.sendChatAction(ctx.chat.id, "typing");
+
   const stream = await agent.stream({ messages: [new HumanMessage(ctx.message.text)] }, config);
+  
   for await (const chunk of stream) {
     if (chunk.agent?.messages[0]?.content) {
-      await ctx.reply(chunk.agent.messages[0].content);
+      const response = chunk.agent.messages[0].content;
+
+      // Format message properly with HTML
+      const formattedResponse = `<b>📝 Response:</b>\n\n${response}`;
+
+      await ctx.replyWithHTML(formattedResponse, {
+        reply_to_message_id: ctx.message.message_id,
+      });
     }
   }
 });
+
+
 
 // Start the bot
 bot.launch();
